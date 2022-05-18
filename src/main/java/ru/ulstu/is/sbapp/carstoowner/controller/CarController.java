@@ -6,6 +6,7 @@ import ru.ulstu.is.sbapp.carstoowner.model.DopCar;
 import ru.ulstu.is.sbapp.carstoowner.service.CarService;
 
 import javax.validation.Valid;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -45,10 +46,8 @@ public class CarController {
     }
 
     @GetMapping("/?{price1}&{price2}")
-    public List<DopCarDto> getCarsByPrice(@PathVariable float price1,
-                                       @PathVariable float price2) {
-        return carService.getCarsByPrice(price1, price2).stream()
-                .map(DopCarDto::new)
-                .toList();
+    public List<Object> getByPrice(@PathVariable float price1,
+                                          @PathVariable float price2) {
+        return Collections.singletonList(carService.getByPrice(price1, price2));
     }
 }

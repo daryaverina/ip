@@ -1,19 +1,13 @@
 package ru.ulstu.is.sbapp.carstoowner.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import ru.ulstu.is.sbapp.carstoowner.controller.CarDto;
 import ru.ulstu.is.sbapp.carstoowner.model.Car;
-import ru.ulstu.is.sbapp.carstoowner.model.DopCar;
 import ru.ulstu.is.sbapp.carstoowner.repository.CarRepository;
 import ru.ulstu.is.sbapp.util.validation.ValidatorUtil;
 
-import javax.persistence.EntityNotFoundException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -109,22 +103,8 @@ public class CarService {
         carRepository.deleteAll();
     }
 
-//    @Transactional
-//    public List<Object> getCarsByPrice(float price1, float price2) {
-//        var cars = carRepository.takeCarsByPrice(price1, price2);
-//        List<Object> list = new ArrayList<>();
-//        for (var car : cars) {
-//            list.add(new Object({
-//                    car.getModel(),
-//                    car.getOwner().getFirstName() + " " + car.getOwner().getLastName(),
-//                    car.getSTO().getName()
-//            }));
-//        }
-//        return list;
-//    }
-
     @Transactional
-    public List<DopCar> getCarsByPrice(float price1, float price2) {
-        return carRepository.takeCarsByPrice((int)price1, (int)price2);
+    public Optional<Object> getByPrice(float price1, float price2) {
+        return carRepository.takeByPrice((int) price1, (int) price2);
     }
 }
