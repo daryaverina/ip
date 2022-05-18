@@ -11,8 +11,6 @@ public class CarDto {
     private long owner;
     private long sto;
 
-    /*
-    * можно ли хранить Id ownera и sto или сами объекты?*/
     public CarDto() { }
 
     public CarDto(Car car) {

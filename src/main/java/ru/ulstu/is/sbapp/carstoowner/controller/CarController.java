@@ -2,6 +2,7 @@ package ru.ulstu.is.sbapp.carstoowner.controller;
 
 import org.springframework.web.bind.annotation.*;
 import ru.ulstu.is.sbapp.carstoowner.model.Car;
+import ru.ulstu.is.sbapp.carstoowner.model.DopCar;
 import ru.ulstu.is.sbapp.carstoowner.service.CarService;
 
 import javax.validation.Valid;
@@ -41,5 +42,13 @@ public class CarController {
     @DeleteMapping("/{id}")
     public CarDto deleteCar(@PathVariable Long id) {
         return new CarDto(carService.deleteCar(id));
+    }
+
+    @GetMapping("/?{price1}&{price2}")
+    public List<DopCarDto> getCarsByPrice(@PathVariable float price1,
+                                       @PathVariable float price2) {
+        return carService.getCarsByPrice(price1, price2).stream()
+                .map(DopCarDto::new)
+                .toList();
     }
 }
