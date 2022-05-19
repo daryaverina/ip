@@ -4,10 +4,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import ru.ulstu.is.sbapp.carstoowner.controller.CarDto;
+import ru.ulstu.is.sbapp.carstoowner.controller.DopCarDto;
 import ru.ulstu.is.sbapp.carstoowner.model.Car;
 import ru.ulstu.is.sbapp.carstoowner.repository.CarRepository;
 import ru.ulstu.is.sbapp.util.validation.ValidatorUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -104,7 +106,7 @@ public class CarService {
     }
 
     @Transactional
-    public Optional<Object> getByPrice(float price1, float price2) {
-        return carRepository.takeByPrice((int) price1, (int) price2);
+    public List<DopCarDto> getByPrice(float price1, float price2) {
+        return carRepository.takeByPrice(price1, price2);
     }
 }

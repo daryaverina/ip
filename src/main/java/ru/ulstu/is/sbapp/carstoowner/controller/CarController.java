@@ -1,12 +1,9 @@
 package ru.ulstu.is.sbapp.carstoowner.controller;
 
 import org.springframework.web.bind.annotation.*;
-import ru.ulstu.is.sbapp.carstoowner.model.Car;
-import ru.ulstu.is.sbapp.carstoowner.model.DopCar;
 import ru.ulstu.is.sbapp.carstoowner.service.CarService;
 
 import javax.validation.Valid;
-import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -45,9 +42,9 @@ public class CarController {
         return new CarDto(carService.deleteCar(id));
     }
 
-    @GetMapping("/?{price1}&{price2}")
-    public List<Object> getByPrice(@PathVariable float price1,
-                                          @PathVariable float price2) {
-        return Collections.singletonList(carService.getByPrice(price1, price2));
+    @GetMapping("/query")
+    public List<DopCarDto> getByPrice(@RequestParam float price1,
+                                      @RequestParam float price2) {
+        return carService.getByPrice(price1, price2);
     }
 }
