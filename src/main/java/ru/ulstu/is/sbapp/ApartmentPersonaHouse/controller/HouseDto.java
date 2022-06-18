@@ -7,15 +7,15 @@ import java.util.List;
 
 public class HouseDto {
     private long id;
-    private String first_name;
-    private String last_name;
+    private String street;
+    private Integer number;
     private List<Long> Apartments;
 
     public HouseDto() {}
     public HouseDto(House House){
         this.id = House.getId();
-        this.first_name = House.getFirstName();
-        this.last_name = House.getLastName();
+        this.street = House.getStreet();
+        this.number = House.getNumber();
         Apartments = new ArrayList<>();
         if (House.getApartments() != null) {
             for (var Apartment : House.getApartments()) {
@@ -26,9 +26,9 @@ public class HouseDto {
 
     public long getId() { return id; }
 
-    public String getFirstName() { return first_name; }
+    public String getStreet() { return street; }
 
-    public String getLastName() { return last_name; }
+    public Integer getNumber() { return number; }
 
     public List<Long> getApartments() { return Apartments; }
 }

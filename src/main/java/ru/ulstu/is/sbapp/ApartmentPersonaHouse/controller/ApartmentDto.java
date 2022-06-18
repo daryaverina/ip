@@ -4,8 +4,8 @@ import ru.ulstu.is.sbapp.ApartmentPersonaHouse.model.Apartment;
 
 public class ApartmentDto {
     private long id;
-    private String model;
-    private float price;
+    private Integer floor;
+    private Integer number;
     private long House;
     private long Persona;
 
@@ -13,8 +13,8 @@ public class ApartmentDto {
 
     public ApartmentDto(Apartment Apartment) {
         this.id = Apartment.getId();
-        this.model = Apartment.getModel();
-        this.price = Apartment.getPrice();
+        this.floor = Apartment.getFloor();
+        this.number = Apartment.getNumber();
         if (Apartment.getHouse() != null) {
             House = Apartment.getHouse().getId();
         }
@@ -25,9 +25,9 @@ public class ApartmentDto {
 
     public long getId() { return id; }
 
-    public String getModel() { return model; }
+    public Integer getFloor() { return floor; }
 
-    public float getPrice() { return price; }
+    public Integer getNumber() { return number; }
 
     public long getPersona(){ return Persona; }
 

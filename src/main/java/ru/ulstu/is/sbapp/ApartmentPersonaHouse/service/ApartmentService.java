@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import ru.ulstu.is.sbapp.ApartmentPersonaHouse.controller.ApartmentDto;
-import ru.ulstu.is.sbapp.ApartmentPersonaHouse.controller.DopApartmentDto;
 import ru.ulstu.is.sbapp.ApartmentPersonaHouse.model.Apartment;
 import ru.ulstu.is.sbapp.ApartmentPersonaHouse.repository.ApartmentRepository;
 import ru.ulstu.is.sbapp.util.validation.ValidatorUtil;
@@ -28,13 +27,13 @@ public class ApartmentService {
     }
 
     @Transactional
-    public Apartment addApartment(String model, float price, long HouseId, long PersonaId) {
-        if(!StringUtils.hasText(model) || HouseId == 0 || PersonaId == 0) {
+    public Apartment addApartment(Integer floor, Integer number, long HouseId, long PersonaId) {
+        if(!StringUtils.hasText(floor.toString()) || HouseId == 0 || PersonaId == 0) {
             throw new IllegalArgumentException("Apartment data is null or empty");
         }
         var House = HouseService.findHouse(HouseId);
         var Persona = PersonaService.findPersona(PersonaId);
-        var Apartment = new Apartment(model, price);
+        var Apartment = new Apartment(floor, number);
         Apartment.setHouse(House);
         Apartment.setPersona(Persona);
         validatorUtil.validate(Apartment);
@@ -43,7 +42,7 @@ public class ApartmentService {
 
     @Transactional
     public ApartmentDto addApartment(ApartmentDto ApartmentDto) {
-        return new ApartmentDto(addApartment(ApartmentDto.getModel(), ApartmentDto.getPrice(), ApartmentDto.getHouse(), ApartmentDto.getPersona()));
+        return new ApartmentDto(addApartment(ApartmentDto.getFloor(), ApartmentDto.getNumber(), ApartmentDto.getHouse(), ApartmentDto.getPersona()));
     }
 
 
@@ -59,15 +58,15 @@ public class ApartmentService {
     }
 
     @Transactional
-    public Apartment updateApartment(Long id, String model, float price, Long HouseId, Long PersonaId) {
-        if(!StringUtils.hasText(model)) {
+    public Apartment updateApartment(Long id, Integer floor, Integer number, Long HouseId, Long PersonaId) {
+        if(!StringUtils.hasText(floor.toString())) {
             throw new IllegalArgumentException("Apartment data is null or empty");
         }
         final Apartment currentApartment = findApartment(id);
         var House = HouseService.findHouse(HouseId);
         var Persona = PersonaService.findPersona(PersonaId);
-        currentApartment.setModel(model);
-        currentApartment.setPrice(price);
+        currentApartment.setFloor(floor);
+        currentApartment.setNumber(number);
         if (currentApartment.getHouse().getId().equals(HouseId)) {
             currentApartment.getHouse().updateApartment(id, currentApartment);
         }
@@ -89,7 +88,7 @@ public class ApartmentService {
 
     @Transactional
     public ApartmentDto updateApartment(ApartmentDto ApartmentDto) {
-        return new ApartmentDto(updateApartment(ApartmentDto.getId(), ApartmentDto.getModel(), ApartmentDto.getPrice(), ApartmentDto.getHouse(), ApartmentDto.getPersona()));
+        return new ApartmentDto(updateApartment(ApartmentDto.getId(), ApartmentDto.getFloor(), ApartmentDto.getNumber(), ApartmentDto.getHouse(), ApartmentDto.getPersona()));
     }
 
     @Transactional
@@ -104,8 +103,4 @@ public class ApartmentService {
         ApartmentRepository.deleteAll();
     }
 
-    @Transactional
-    public List<DopApartmentDto> getByPrice(float price1, float price2) {
-        return ApartmentRepository.takeByPrice(price1, price2);
-    }
 }

@@ -3,20 +3,14 @@ package ru.ulstu.is.sbapp.ApartmentPersonaHouse.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Objects;
-//Многие-к-одному к Persona
-//Много автомобилей в одном СТО
-//Многие-к-одному к House
-//Один владелец может иметь несколько автомобилей
 @Entity
 public class Apartment {
     @Id
-    @SequenceGenerator(name = "Apartment_seq",
-    sequenceName = "Apartment_sequence", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Apartment_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "apart_seq")
+    @SequenceGenerator(name="apart_seq", sequenceName = "APART_SEQUENCE", allocationSize=1)
     private Long id;
-    @NotBlank (message="Apartment model can't be null or empty")
-    private String model;
-    private float price;
+    private Integer floor;
+    private Integer number;
 
     @ManyToOne()
     @JoinColumn(name = "House_fk")
@@ -29,33 +23,33 @@ public class Apartment {
     public Apartment(){
     }
 
-    public Apartment(String model, float price){
-        this.model = model;
-        this.price = price;
+    public Apartment(Integer floor, Integer number){
+        this.floor = floor;
+        this.number = number;
     }
 
     public Long getId() {
         return id;
     }
 
-    public String getModel() {
-        return model;
+    public Integer getFloor() {
+        return floor;
     }
 
-    public float getPrice() {
-        return price;
+    public Integer getNumber() {
+        return number;
     }
 
     public House getHouse(){ return House; }
 
     public Persona getPersona(){ return Persona; }
 
-    public void setModel(String model) {
-        this.model = model;
+    public void setFloor(Integer floor) {
+        this.floor = floor;
     }
 
-    public void setPrice(float price) {
-        this.price = price;
+    public void setNumber(Integer number) {
+        this.number = number;
     }
 
     public void setHouse(House House){
@@ -102,6 +96,6 @@ public class Apartment {
     }
 
     public String toString() {
-        return model + "$" + price;
+        return floor + "$" + number;
     }
 }

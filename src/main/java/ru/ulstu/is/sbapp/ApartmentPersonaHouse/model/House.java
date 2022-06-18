@@ -5,33 +5,28 @@ import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-//Один-ко-многим к автомобилям
-//Один владелец может иметь несколько машин
 @Entity
 public class House {
     @Id
-    @SequenceGenerator(name = "House_seq",
-            sequenceName = "House_sequence", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "House_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "house_seq")
+    @SequenceGenerator(name="house_seq", sequenceName = "HOUSE_SEQUENCE", allocationSize=1)
     private Long id;
-    @NotBlank(message="House first name can't be null or empty")
-    private String firstName;
-    @NotBlank(message="House last name can't be null or empty")
-    private String lastName;
+    private String street;
+    private Integer number;
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "House_fk")
     private List<Apartment> Apartments = new ArrayList<>();
 
     public House(){ }
 
-    public House(String firstName, String lastName){
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public House(String street, Integer number){
+        this.street = street;
+        this.number = number;
     }
 
-    public House(String firstName, String lastName, List<Apartment> Apartments){
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public House(String street, Integer number, List<Apartment> Apartments){
+        this.street = street;
+        this.number = number;
         this.Apartments = Apartments;
     }
 
@@ -39,22 +34,22 @@ public class House {
         return id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getStreet() {
+        return street;
     }
 
-    public String getLastName(){ return lastName; }
+    public Integer getNumber(){ return number; }
 
     public List<Apartment> getApartments(){
         return Apartments;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setStreet(String street) {
+        this.street = street;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setNumber(Integer number) {
+        this.number = number;
     }
 
     public void setApartment(Apartment Apartment){
@@ -106,6 +101,6 @@ public class House {
 
     @Override
     public String toString() {
-        return firstName + "$" + lastName;
+        return street + "$" + number;
     }
 }

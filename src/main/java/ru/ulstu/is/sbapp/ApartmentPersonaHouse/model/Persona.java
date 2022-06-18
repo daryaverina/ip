@@ -5,16 +5,12 @@ import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-//один ко многим с Apartment
-//в одном СТО много автомобилей
 @Entity
 public class Persona {
     @Id
-    @SequenceGenerator(name = "Persona_seq",
-            sequenceName = "Persona_sequence", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Persona_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pers_seq")
+    @SequenceGenerator(name="pers_seq", sequenceName = "PERS_SEQUENCE", allocationSize=1)
     private Long id;
-    @NotBlank(message="Persona name can't be null or empty")
     private String name;
 
     @OneToMany(fetch = FetchType.EAGER)

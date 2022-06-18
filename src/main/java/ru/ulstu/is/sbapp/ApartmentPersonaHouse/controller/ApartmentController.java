@@ -27,9 +27,17 @@ public class ApartmentController {
                 .toList();
     }
 
+    //@PostMapping("/")
+    //public ApartmentDto createApartment(@RequestBody @Valid ApartmentDto ApartmentDto) {
+      //  return ApartmentService.addApartment(ApartmentDto);
+    //}
+
     @PostMapping("/")
-    public ApartmentDto createApartment(@RequestBody @Valid ApartmentDto ApartmentDto) {
-        return ApartmentService.addApartment(ApartmentDto);
+    public ApartmentDto createApartment(@RequestParam("floor") Integer floor,
+                                        @RequestParam("number") Integer number,
+                                        @RequestParam("house id")Integer house,
+                                        @RequestParam("person id")Integer person) {
+        return new ApartmentDto(ApartmentService.addApartment(floor, number, house, person));
     }
 
     @PatchMapping("/")
@@ -42,9 +50,4 @@ public class ApartmentController {
         return new ApartmentDto(ApartmentService.deleteApartment(id));
     }
 
-    @GetMapping("/query")
-    public List<DopApartmentDto> getByPrice(@RequestParam float price1,
-                                      @RequestParam float price2) {
-        return ApartmentService.getByPrice(price1, price2);
-    }
 }

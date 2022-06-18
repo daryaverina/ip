@@ -26,11 +26,11 @@ public class HouseService {
     }
 
     @Transactional
-    public House addHouse(String firstName, String lastname) {
-        if(!StringUtils.hasText(firstName) || !StringUtils.hasText(lastname)) {
-            throw new IllegalArgumentException("House FIO is null or empty");
+    public House addHouse(String street, Integer number) {
+        if(!StringUtils.hasText(street) || !StringUtils.hasText(number.toString())) {
+            throw new IllegalArgumentException("House street is null or empty");
         }
-        final House House = new House(firstName, lastname);
+        final House House = new House(street, number);
         validatorUtil.validate(House);
         return HouseRepository.save(House);
     }
@@ -42,15 +42,15 @@ public class HouseService {
     }
 
     @Transactional(readOnly = true)
-    public House findHouseByFIO(String firstName, String lastName) {
+    public House findHouseByFIO(String street, Integer number) {
         List<House> Houses = HouseRepository.findAll();
         for (var House : Houses) {
-            if (House.getFirstName().equals(firstName) && House.getLastName().equals(lastName))
+            if (House.getStreet().equals(street) && House.getNumber().equals(number))
             {
                 return House;
             }
         }
-        throw new EntityNotFoundException(String.format("House with fio [%s] [%s] is not found", firstName, lastName));
+        throw new EntityNotFoundException(String.format("House with fio [%s] [%s] is not found", street, number));
     }
 
     @Transactional(readOnly = true)
@@ -59,20 +59,20 @@ public class HouseService {
     }
 
     @Transactional
-    public House updateHouse(Long id, String firstName, String lastName) {
-        if(!StringUtils.hasText(firstName) || !StringUtils.hasText(lastName)) {
-            throw new IllegalArgumentException("House FIO is null or empty");
+    public House updateHouse(Long id, String street, Integer number) {
+        if(!StringUtils.hasText(street) || !StringUtils.hasText(number.toString())) {
+            throw new IllegalArgumentException("House street is null or empty");
         }
         final House currentHouse = findHouse(id);
-        currentHouse.setFirstName(firstName);
-        currentHouse.setLastName(lastName);
+        currentHouse.setStreet(street);
+        currentHouse.setNumber(number);
         validatorUtil.validate(currentHouse);
         return HouseRepository.save(currentHouse);
     }
 
     @Transactional
     public HouseDto updateHouse(HouseDto HouseDto) {
-        return new HouseDto(updateHouse(HouseDto.getId(), HouseDto.getFirstName(), HouseDto.getLastName()));
+        return new HouseDto(updateHouse(HouseDto.getId(), HouseDto.getStreet(), HouseDto.getNumber()));
     }
 
     @Transactional
@@ -98,7 +98,7 @@ public class HouseService {
         List<House> Houses = findAllHouses();
         for(var House : Houses){
             if(House.getApartments().size() > 0)
-                throw new InHouseFoundApartmentsException("У " + House.getFirstName() + " " + House.getLastName() + " есть автомобили");
+                throw new InHouseFoundApartmentsException("У " + House.getStreet() + " " + House.getNumber() + " есть дом");
         }
         HouseRepository.deleteAll();
     }

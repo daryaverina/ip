@@ -25,12 +25,13 @@ public class HouseController {
         return HouseService.findAllHouses().stream()
                 .map(HouseDto::new)
                 .toList();
+
     }
 
     @PostMapping("/")
-    public HouseDto createHouse(@RequestParam("firstName") String firstName,
-                             @RequestParam("lastName") String lastName) {
-        return new HouseDto(HouseService.addHouse(firstName, lastName));
+    public HouseDto createHouse(@RequestParam("street") String street,
+                             @RequestParam("number") Integer number) {
+        return new HouseDto(HouseService.addHouse(street, number));
     }
 
     @PatchMapping("/{id}")
