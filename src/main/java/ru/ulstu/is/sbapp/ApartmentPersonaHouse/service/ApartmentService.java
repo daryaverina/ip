@@ -58,7 +58,7 @@ public class ApartmentService {
     }
 
     @Transactional
-    public Apartment updateApartment(Long id, Integer floor, Integer number, Long HouseId, Long PersonaId) {
+    public Apartment updateApartment(long id, Integer floor, Integer number, long HouseId, long PersonaId) {
         if(!StringUtils.hasText(floor.toString())) {
             throw new IllegalArgumentException("Apartment data is null or empty");
         }

@@ -8,15 +8,15 @@ import java.util.List;
 public class PersonaDto {
     private long id;
     private String name;
-    private List<Long> Apartments;
+    private List<Long> apartments;
     public PersonaDto() {}
     public PersonaDto(Persona Persona){
         this.id = Persona.getId();
         this.name = Persona.getName();
-        Apartments = new ArrayList<>();
+        apartments = new ArrayList<>();
         if (Persona.getApartments() != null) {
             for (var Apartment : Persona.getApartments()) {
-                Apartments.add(Apartment.getId());
+                apartments.add(Apartment.getId());
             }
         }
     }
@@ -27,6 +27,6 @@ public class PersonaDto {
 
     public String getName() { return name; }
 
-    public List<Long> getApartments() { return Apartments; }
+    public List<Long> getApartments() { return apartments; }
 
 }

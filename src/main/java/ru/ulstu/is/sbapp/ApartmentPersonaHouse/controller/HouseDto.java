@@ -9,17 +9,17 @@ public class HouseDto {
     private long id;
     private String street;
     private Integer number;
-    private List<Long> Apartments;
+    private List<Long> apartments;
 
     public HouseDto() {}
     public HouseDto(House House){
         this.id = House.getId();
         this.street = House.getStreet();
         this.number = House.getNumber();
-        Apartments = new ArrayList<>();
+        apartments = new ArrayList<>();
         if (House.getApartments() != null) {
             for (var Apartment : House.getApartments()) {
-                Apartments.add(Apartment.getId());
+                apartments.add(Apartment.getId());
             }
         }
     }
@@ -30,5 +30,5 @@ public class HouseDto {
 
     public Integer getNumber() { return number; }
 
-    public List<Long> getApartments() { return Apartments; }
+    public List<Long> getApartments() { return apartments; }
 }
