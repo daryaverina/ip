@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import ru.ulstu.is.sbapp.carstoowner.service.CarNotFoundException;
+import ru.ulstu.is.sbapp.ApartmentPersonaHouse.service.ApartmentNotFoundException;
 import ru.ulstu.is.sbapp.util.validation.ValidationException;
 
 import java.util.stream.Collectors;
@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class AdviceController {
     @ExceptionHandler({
-            CarNotFoundException.class,
+            ApartmentNotFoundException.class,
             ValidationException.class
     })
     public ResponseEntity<Object> handleException(Throwable e) {
