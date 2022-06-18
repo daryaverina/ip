@@ -97,7 +97,7 @@ public class PersonaService {
         var Personas = findAllPersonas();
         for (var Persona : Personas) {
             if (Persona.getApartments().size() > 0) {
-                throw new InPersonafoundApartmentsException("В сервисе " + Persona.getName() + " есть автомобили");
+                throw new InPersonafoundApartmentsException("У человека " + Persona.getName() + " есть квартиры");
             }
         }
         PersonaRepository.deleteAll();
